@@ -1,0 +1,63 @@
+\begin{frame}[fragile]
+
+\frametitle{Resource Limits, The Interface}
+
+\begin{manblock}
+
+\footnotesize
+
+\begin{lstlisting}
+int getrlimit(int resource, struct rlimit *rlim);
+int setrlimit(int resource, const struct rlimit *rlim);
+\end{lstlisting}
+
+\begin{lstlisting}
+struct rlimit {
+  rlim_t rlim_cur;  /* Soft limit */
+  rlim_t rlim_max;  /* Hard limit (ceiling for rlim_cur) */
+};
+\end{lstlisting}
+
+\end{manblock}
+
+\begin{itemize}
+
+\item Per-process resource limits.
+
+\item Inheritted by subprocesses.
+
+\item A process can only \emph{irreversibly} lower the ``hard limit''.
+
+\item (But still arbitrarily manipulate the ``soft limit''.)
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\frametitle{Resource Limits, Examples}
+
+\setbeamersize{description width=8em}
+
+\begin{description}
+
+\item[\texttt{RLIMIT\_STACK}] Maximum stack size
+stack\footnote{Used by NTPL \texttt{clone()}.}.
+
+\item[\texttt{RLIMIT\_NPROC}] Maximum number of subprocesses.
+
+\item[\texttt{RLIMIT\_FSIZE}] Maximum file size.
+
+\item[\texttt{RLIMIT\_NOFILE}] Maxmimum number of open files.
+
+\item[\texttt{RLIMIT\_CPU}] CPU time limit in seconds.
+
+\item[\texttt{RLIMIT\_AS}] Address space (VM) size limit.
+
+\item[\texttt{RLIMIT\_DATA}] Maximum data segment size.
+
+\end{description}
+
+\end{frame}

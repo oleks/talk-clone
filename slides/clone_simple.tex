@@ -1,0 +1,78 @@
+\begin{frame}[fragile]
+
+\frametitle{\texttt{clone(}``\texttt{2}''\texttt{)}}
+
+\footnotesize
+
+\lstinputlisting[firstline=14]{../src/clone_simple.c}
+
+\end{frame}
+
+
+
+% \begin{frame}[fragile]
+% 
+% \frametitle{\texttt{man} ``2'' \texttt{clone}}
+% 
+% \footnotesize
+% 
+% The low byte of \texttt{flags} contains the number of the termination signal
+% sent to the parent when the child dies.  If this signal is specified as
+% anything other than \texttt{SIGCHLD}, then the parent process must specify the
+% \texttt{\_\_WALL} or \texttt{\_\_WCLONE} options when  waiting  for  the child
+% with \texttt{wait(2)}.  If no signal is specified, then the parent process is
+% not signaled when the child terminates.
+% 
+% \end{frame}
+
+\begin{frame}[fragile]
+
+\frametitle{\texttt{man} ``2'' \texttt{clone}}
+
+\footnotesize
+
+\begin{manblock}
+
+\textbf{C library/kernel differences}
+
+\medskip
+
+The raw \texttt{clone()} system call corresponds more closely to
+\texttt{fork(2)} in that execution  in the  child continues from the point of
+the call.  As such, the \texttt{fn} and \texttt{arg} arguments of the
+\texttt{clone()} wrapper function are omitted.  Furthermore, the  argument
+order  changes.  The raw system call interface on x86 and many other
+architectures is roughly:
+
+\begin{lstlisting}[language=c]
+long clone(unsigned long flags, void *child_stack,
+           void *ptid, void *ctid,
+           struct pt_regs *regs);
+\end{lstlisting}
+
+Another  difference  for  the  raw system call is that the
+\texttt{child\_stack} argument may be zero, in which case copy-on-write
+semantics ensure that the child gets separate copies of  stack  pages  when
+either  process modifies the stack.  In this case, for correct operation, the
+\texttt{CLONE\_VM} option should not be specified.
+
+\medskip
+
+For some architectures, the order of the arguments for the system  call differs
+from that  shown  above.
+
+\end{manblock}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{\texttt{man} ``2'' \texttt{clone}}
+
+\end{frame}
+
+\begin{frame}
+
+\frametitle{Control groups}
+
+\end{frame}

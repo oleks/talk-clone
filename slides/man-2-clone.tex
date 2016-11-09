@@ -1,0 +1,46 @@
+\begin{frame}[fragile]
+
+\frametitle{\texttt{man} ``2'' \texttt{clone}}
+
+\footnotesize
+
+\begin{manblock}
+
+\begin{lstlisting}
+int clone(int (*fn)(void *), void *child_stack,
+          int flags, void *arg, ...
+\end{lstlisting}
+
+\texttt{clone()} creates a new process, in a manner similar to \texttt{fork(2)}.
+
+\medskip
+
+($\ldots$)
+
+\medskip
+
+Unlike \texttt{fork(2)}, \texttt{clone()} allows the child process to
+share parts of its execution context with the calling process, such as the
+memory space, the table of file descriptors, and the table of signal handlers.
+
+($\ldots$)
+
+\medskip
+
+When the child process is created with \texttt{clone()}, \\ it  executes
+the function \texttt{fn(arg)}.
+
+($\ldots$)
+
+\medskip
+
+When the \texttt{fn(arg)} function application returns,  the  child process
+terminates. The integer returned by \texttt{fn} is the exit code for the child
+process.
+
+% The child process may also terminate explicitly by calling
+% \texttt{exit(2)} or after receiving a fatal signal.
+
+\end{manblock}
+
+\end{frame}

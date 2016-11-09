@@ -1,0 +1,98 @@
+\begin{frame}[fragile]
+
+\frametitle{Let's do some \texttt{work}!}
+
+\footnotesize
+
+\lstinputlisting[firstline=7]{../src/work.c}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\frametitle{\texttt{gcc -fstack-usage}?}
+
+\lstinputlisting[firstline=17,lastline=18]{../src/Makefile}
+
+\begin{itemize}
+
+\item Results for our \texttt{work.c} above:
+
+\input{gen-work-su}
+
+\item Size is given in bytes\ldots
+
+\item May be \texttt{static} or \texttt{dynamic} (but hopefully,
+\texttt{bounded}).
+
+\end{itemize}
+
+\vspace{\fill}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Default Stack Sizes}
+
+\vspace{\fill}
+
+This metric doesn't take into account:
+
+\begin{itemize}
+
+\item Thread-local storage.
+
+\item C Standard Library overhead.
+
+\end{itemize}
+
+\vspace{\fill}
+
+So, we typically, we use some heuristic (sigh):
+
+\begin{itemize}
+
+\item 8MB in GNU libc
+
+\item 80KB in musl libc
+
+\item 65KB in my sample code
+
+\lstinputlisting[firstline=12,lastline=12]{../src/clone_simple.c}
+
+\end{itemize}
+
+\vspace{\fill}
+
+\end{frame}
+
+
+\begin{frame}
+
+\frametitle{Degree of Multiprogramming}
+
+\vspace{\fill}
+
+\begin{center}
+
+How many threads can we run simultaneously?
+
+\end{center}
+
+\begin{itemize}
+
+\item Kernel thread handling overhead limits this.
+
+\item Exuberant stack sizes (e.g., GNU libc) limits this.
+
+\item This is why more efficiency-concerned libraries (e.g., musl libc), might
+prefer a smaller \emph{default} stack size.
+
+\end{itemize}
+
+\vspace{\fill}
+
+\end{frame}

@@ -1,0 +1,53 @@
+\begin{frame}[fragile]
+
+\frametitle{\texttt{fork(}``\texttt{2}''\texttt{)}}
+
+\footnotesize
+
+\lstinputlisting[firstline=10]{../src/fork.c}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\frametitle{\texttt{make fork-trace} (i.e., \texttt{strace -f ./fork.bin})}
+
+\footnotesize
+
+\input{gen-fork-trace}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+
+\frametitle{\texttt{man} ``2'' \texttt{fork}}
+
+\footnotesize
+
+\begin{manblock}
+
+\textbf{C library/kernel differences}
+
+\medskip
+
+Since  version  2.3.3,  rather  than invoking the kernel's \texttt{fork()}
+system call, the glibc \texttt{fork()} wrapper that is provided as part of the
+NPTL threading implementation invokes \texttt{clone(2)} with flags that provide
+the same effect as the traditional system call. ($\ldots$)
+
+\end{manblock}
+
+% (A call to \texttt{fork()} is equivalent to a call to \texttt{clone(2)}
+% specifying \texttt{flags} as just \texttt{SIGCHLD}.)
+
+\begin{itemize}
+
+\item NPTL stands for Native POSIX Thread Library.
+
+\item POSIX stands for Portable Operating System Interface.
+
+\end{itemize}
+
+\end{frame}
